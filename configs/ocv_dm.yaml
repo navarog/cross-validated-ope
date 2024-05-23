@@ -1,0 +1,50 @@
+experiment:
+  directory: ocv_dm
+  n_iter: 100
+  ablation: 
+    dataset.kwargs["dataset"]: [ecoli, glass, letter, optdigits, page-blocks, pendigits, satimage, vehicle, yeast]
+dataset:
+  module: openml
+  kwargs:
+    dataset: ecoli
+    version: 1
+  preprocessing:
+    - name: ordinal_label
+  eval_model_split: 0.5
+logging_policy:
+  name: softmax
+  kwargs:
+    temperature: 1
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+target_policy:
+  name: softmax
+  kwargs:
+    temperature: 10
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+estimators:
+  - name: IPS
+  - name: DM
+  - name: DR
+  - name: EstimatorSelection
+    printname: \ensuremath{\tt OCV_{DM}}
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        valid_estimator: DM
+plot:
+  type: catplot
+  xlabel: Dataset

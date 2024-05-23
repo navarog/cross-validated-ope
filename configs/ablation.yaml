@@ -1,0 +1,89 @@
+experiment:
+  directory: ablation
+  n_iter: 500
+  ablation: 
+    dataset.kwargs["dataset"]: [ecoli, glass, letter, optdigits, page-blocks, pendigits, satimage, vehicle, yeast]
+dataset:
+  module: openml
+  kwargs:
+    dataset: ecoli
+    version: 1
+  preprocessing:
+    - name: ordinal_label
+  eval_model_split: 0.5
+logging_policy:
+  name: softmax
+  kwargs:
+    temperature: 1
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+target_policy:
+  name: softmax
+  kwargs:
+    temperature: 10
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+estimators:
+  - name: IPS
+  - name: DM
+  - name: DR
+  - name: EstimatorSelection
+    printname: 'A: \ensuremath{\tt OCV_{DR}} 90/10 split ratio'
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: CV
+      kwargs:
+        valid_estimator: DR
+        one_standard_error_rule: False
+  - name: EstimatorSelection
+    printname: 'B: A + one SE rule'
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: CV
+      kwargs:
+        valid_estimator: DR
+        one_standard_error_rule: True
+  - name: EstimatorSelection
+    printname: 'C: A + theory split ratio'
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        K: 10
+        one_standard_error_rule: False
+        valid_estimator: DR
+  - name: EstimatorSelection
+    printname: 'D: B + C'
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        K: 10
+        one_standard_error_rule: True
+        valid_estimator: DR
+  - name: EstimatorSelection
+    printname: 'E: D + 100 K training/test splits'
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        K: 100
+        one_standard_error_rule: True
+        valid_estimator: DR
+plot:
+  type: barplot

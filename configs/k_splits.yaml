@@ -1,0 +1,38 @@
+experiment:
+  directory: k_splits
+  n_iter: 500
+  ablation: 
+    estimators[0].tuning.kwargs["K"]: [2, 3, 5, 7, 10, 20, 50, 100, 200, 500, 1000]
+dataset:
+  module: openml
+  kwargs:
+    dataset: vehicle
+    version: 1
+  preprocessing:
+    - name: ordinal_label
+  eval_model_split: 0.5
+logging_policy:
+  name: softmax
+  kwargs:
+    temperature: 1
+    model_kwargs:
+      max_iter: 1000000
+target_policy:
+  name: softmax
+  kwargs:
+    temperature: 10
+    model_kwargs:
+      max_iter: 1000000
+estimators:
+  - name: EstimatorSelection
+    printname: \ensuremath{\tt OCV_{DR}}
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        valid_estimator: DR
+plot:
+  type: lineplot
+  xscale: log
+  xlabel: Training/validation splits

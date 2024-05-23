@@ -1,0 +1,111 @@
+dataset:
+  eval_model_split: 0.5
+  kwargs:
+    dataset: vehicle
+    version: 1
+  module: openml
+  preprocessing:
+  - kwargs: {}
+    name: ordinal_label
+estimators:
+- hyperparameters: {}
+  kwargs: {}
+  name: IPS
+  printname: IPS
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DM
+  printname: DM
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DR
+  printname: DR
+  tuning: null
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: OCV$_{\mathregular{IPS}}$
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: OCV$_{\mathregular{DR}}$
+  tuning:
+    kwargs:
+      valid_estimator: DR
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DR
+    - DM
+  kwargs: {}
+  name: EstimatorSelection
+  printname: SLOPE
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: PAS-IF
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+experiment:
+  ablation: {}
+  directory: example
+  n_iter: 5
+logging_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 1
+  name: softmax
+plot:
+  figsize:
+  - 4
+  - 2.6666666666666665
+  title: Performance on the $\it{vehicle}$ dataset
+  type: barplot
+  use_latex: false
+  xlabel: null
+  xscale: null
+  xvar: null
+  ylabel: MSE
+  yscale: log
+  yvar: MSE
+sampler: {}
+target_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 10
+  name: softmax

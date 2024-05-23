@@ -1,0 +1,143 @@
+dataset:
+  eval_model_split: 0.5
+  kwargs:
+    dataset: ecoli
+    version: 1
+  module: openml
+  preprocessing:
+  - kwargs: {}
+    name: ordinal_label
+estimators:
+- hyperparameters: {}
+  kwargs: {}
+  name: IPS
+  printname: IPS
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DM
+  printname: DM
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DR
+  printname: DR
+  tuning: null
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: 'A: \ensuremath{\tt OCV_{DR}} 90/10 split ratio'
+  tuning:
+    kwargs:
+      one_standard_error_rule: false
+      valid_estimator: DR
+    tuner: CV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: 'B: A + one SE rule'
+  tuning:
+    kwargs:
+      one_standard_error_rule: true
+      valid_estimator: DR
+    tuner: CV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: 'C: A + theory split ratio'
+  tuning:
+    kwargs:
+      B: 10
+      one_standard_error_rule: false
+      valid_estimator: DR
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: 'D: B + C'
+  tuning:
+    kwargs:
+      B: 10
+      one_standard_error_rule: true
+      valid_estimator: DR
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: 'E: D + 100 K training/test splits'
+  tuning:
+    kwargs:
+      B: 100
+      one_standard_error_rule: true
+      valid_estimator: DR
+    tuner: OCV
+experiment:
+  ablation:
+    dataset.kwargs["dataset"]:
+    - ecoli
+    - glass
+    - letter
+    - optdigits
+    - page-blocks
+    - pendigits
+    - satimage
+    - vehicle
+    - yeast
+  directory: ablation
+  n_iter: 500
+logging_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 1
+  name: softmax
+plot:
+  figsize:
+  - 4
+  - 2.6666666666666665
+  title: null
+  type: barplot
+  use_latex: true
+  xlabel: null
+  xscale: null
+  xvar: null
+  ylabel: MSE
+  yscale: log
+  yvar: MSE
+sampler: {}
+target_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 10
+  name: softmax

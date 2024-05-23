@@ -1,0 +1,412 @@
+dataset:
+  eval_model_split: 0.5
+  kwargs:
+    dataset: ecoli
+    version: 1
+  module: openml
+  preprocessing:
+  - kwargs: {}
+    name: ordinal_label
+estimators:
+- hyperparameters: {}
+  kwargs: {}
+  name: TIPS
+  printname: TruncatedIPS Original Tuning/Theory
+  tuning: null
+- hyperparameters: dynamic
+  kwargs: {}
+  name: TIPS
+  printname: TruncatedIPS \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: TIPS
+  printname: TruncatedIPS \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: TIPS
+  printname: TruncatedIPS \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: TIPS
+  printname: TruncatedIPS \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SwitchDR
+  printname: \textsc{Switch}-DR Original Tuning/Theory
+  tuning:
+    kwargs: {}
+    tuner: SwitchDR
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SwitchDR
+  printname: \textsc{Switch}-DR \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SwitchDR
+  printname: \textsc{Switch}-DR \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SwitchDR
+  printname: \textsc{Switch}-DR \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SwitchDR
+  printname: \textsc{Switch}-DR \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: dynamic
+  kwargs: {}
+  name: CAB
+  printname: CAB \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: CAB
+  printname: CAB \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: CAB
+  printname: CAB \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: CAB
+  printname: CAB \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRos
+  printname: DRos Original Tuning/Theory
+  tuning:
+    kwargs: {}
+    tuner: DRs
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRos
+  printname: DRos \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRos
+  printname: DRos \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRos
+  printname: DRos \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRos
+  printname: DRos \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRps
+  printname: DRps Original Tuning/Theory
+  tuning:
+    kwargs: {}
+    tuner: DRs
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRps
+  printname: DRps \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRps
+  printname: DRps \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRps
+  printname: DRps \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: DRps
+  printname: DRps \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: {}
+  kwargs: {}
+  name: SubGaussianIPS
+  printname: IPS-$\lambda$ Original Tuning/Theory
+  tuning: null
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SubGaussianIPS
+  printname: IPS-$\lambda$ \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SubGaussianIPS
+  printname: IPS-$\lambda$ \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SubGaussianIPS
+  printname: IPS-$\lambda$ \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters: dynamic
+  kwargs: {}
+  name: SubGaussianIPS
+  printname: IPS-$\lambda$ \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters:
+    K:
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+  kwargs: {}
+  name: ClusterIPS
+  printname: ClusterIPS \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters:
+    K:
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+  kwargs: {}
+  name: ClusterIPS
+  printname: ClusterIPS \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters:
+    K:
+    - 32
+    - 16
+    - 8
+    - 4
+    - 2
+  kwargs: {}
+  name: ClusterIPS
+  printname: ClusterIPS \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters:
+    K:
+    - 2
+    - 4
+    - 8
+    - 16
+    - 32
+  kwargs: {}
+  name: ClusterIPS
+  printname: ClusterIPS \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+- hyperparameters: dynamic
+  kwargs:
+    hyperparameters:
+    - hyperparameters: dynamic
+      name: SwitchDR
+    - hyperparameters: dynamic
+      name: TIPS
+    - hyperparameters: dynamic
+      name: DRos
+    - hyperparameters: dynamic
+      name: DRps
+    - hyperparameters: dynamic
+      name: CAB
+    - hyperparameters: dynamic
+      name: SubGaussianIPS
+    - hyperparameters:
+        K:
+        - 32
+        - 16
+        - 8
+        - 4
+        - 2
+      name: ClusterIPS
+  name: EstimatorSelection
+  printname: Everything \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs:
+    hyperparameters:
+    - hyperparameters: dynamic
+      name: SwitchDR
+    - hyperparameters: dynamic
+      name: TIPS
+    - hyperparameters: dynamic
+      name: DRos
+    - hyperparameters: dynamic
+      name: DRps
+    - hyperparameters: dynamic
+      name: CAB
+    - hyperparameters: dynamic
+      name: SubGaussianIPS
+    - hyperparameters:
+        K:
+        - 32
+        - 16
+        - 8
+        - 4
+        - 2
+      name: ClusterIPS
+  name: EstimatorSelection
+  printname: Everything \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs: {}
+    tuner: MCCV
+- hyperparameters: dynamic
+  kwargs:
+    hyperparameters:
+    - hyperparameters: dynamic
+      name: SwitchDR
+    - hyperparameters: dynamic
+      name: TIPS
+    - hyperparameters: dynamic
+      name: DRos
+    - hyperparameters: dynamic
+      name: DRps
+    - hyperparameters: dynamic
+      name: CAB
+    - hyperparameters: dynamic
+      name: SubGaussianIPS
+    - hyperparameters:
+        K:
+        - 32
+        - 16
+        - 8
+        - 4
+        - 2
+      name: ClusterIPS
+  name: EstimatorSelection
+  printname: Everything \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+experiment:
+  ablation:
+    dataset.kwargs.dataset:
+    - ecoli
+    - glass
+    - letter
+    - optdigits
+    - page-blocks
+    - pendigits
+    - satimage
+    - vehicle
+    - yeast
+    logging_policy.kwargs.temperature:
+    - 3
+    - 1
+    - 0
+    - -1
+    - -3
+    target_policy.kwargs.temperature:
+    - 10
+    - -10
+  directory: tuning
+  n_iter: 5
+logging_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 1
+  name: softmax
+plot:
+  figsize:
+  - 4
+  - 2.6666666666666665
+  title: null
+  type: tuningplot
+  use_latex: true
+  xlabel: Estimator
+  xscale: null
+  xvar: null
+  ylabel: MSE
+  yscale: log
+  yvar: MSE
+sampler: {}
+target_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 10
+  name: softmax

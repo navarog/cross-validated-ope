@@ -1,0 +1,69 @@
+experiment:
+  directory: example
+  n_iter: 5
+dataset:
+  module: openml
+  kwargs:
+    dataset: vehicle
+    version: 1
+  preprocessing:
+    - name: ordinal_label
+  eval_model_split: 0.5
+logging_policy:
+  name: softmax
+  kwargs:
+    temperature: 1
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+target_policy:
+  name: softmax
+  kwargs:
+    temperature: 10
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+      - name: subsample
+        kwargs:
+          n: 1.0
+          replace: True
+estimators:
+  - name: IPS
+  - name: DM
+  - name: DR
+  - name: EstimatorSelection
+    printname: OCV$_{\mathregular{IPS}}$
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        valid_estimator: IPS
+  - name: EstimatorSelection
+    printname: OCV$_{\mathregular{DR}}$
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: OCV
+      kwargs:
+        valid_estimator: DR
+  - name: EstimatorSelection
+    printname: SLOPE
+    hyperparameters:
+      - estimator: [IPS, DR, DM]
+    tuning:
+      tuner: SLOPE
+  - name: EstimatorSelection
+    printname: PAS-IF
+    hyperparameters:
+      - estimator: [IPS, DM, DR]
+    tuning:
+      tuner: PASIF
+plot:
+  type: barplot
+  title: Performance on the $\it{vehicle}$ dataset
+  use_latex: False

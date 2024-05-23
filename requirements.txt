@@ -1,0 +1,9 @@
+torch
+pandas
+numpy
+matplotlib
+seaborn
+scikit-learn >= 1.2.2, <= 1.4.2
+tqdm
+scipy
+dacite

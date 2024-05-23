@@ -1,0 +1,127 @@
+dataset:
+  eval_model_split: 0.5
+  kwargs:
+    dataset: ecoli
+    version: 1
+  module: openml
+  preprocessing:
+  - kwargs: {}
+    name: ordinal_label
+estimators:
+- hyperparameters: {}
+  kwargs: {}
+  name: IPS
+  printname: IPS
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DM
+  printname: DM
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DR
+  printname: DR
+  tuning: null
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      B: 10
+      one_standard_error_rule: true
+      valid_estimator: IPS
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs:
+      B: 10
+      one_standard_error_rule: true
+      valid_estimator: DR
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DR
+    - DM
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \textsc{Slope}
+  tuning:
+    kwargs:
+      B: 10
+    tuner: SLOPE
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs:
+      B: 10
+    tuner: PASIF
+experiment:
+  ablation:
+    dataset.kwargs.dataset:
+    - ecoli
+    - glass
+    - letter
+    - optdigits
+    - page-blocks
+    - pendigits
+    - satimage
+    - vehicle
+    - yeast
+  directory: dr_weak
+  n_iter: 500
+logging_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 1
+  name: softmax
+plot:
+  figsize:
+  - 4
+  - 2.6666666666666665
+  title: null
+  type: catplot
+  use_latex: true
+  xlabel: Dataset
+  xscale: null
+  xvar: null
+  ylabel: MSE
+  yscale: log
+  yvar: MSE
+sampler: {}
+target_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: -10
+  name: softmax

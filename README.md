@@ -1,6 +1,6 @@
 # Cross-Validated Off-Policy Evaluation
 
-This repository contains the code to reproduce the results reported in our paper. We study the problem of estimator selection and hyper-parameter tuning in off-policy evaluation. Although cross-validation is the most popular method for model selection in supervised learning, off-policy evaluation relies mostly on theory-based approaches, which provide only limited guidance to practitioners. We show how to use cross-validation for off-policy evaluation. This challenges a popular belief that cross-validation in off-policy evaluation is not feasible. We evaluate our method empirically and show that it addresses a variety of use cases.
+This repository contains the code to reproduce the results reported in [our paper](http://arxiv.org/abs/2405.15332). We study the problem of estimator selection and hyper-parameter tuning in off-policy evaluation. Although cross-validation is the most popular method for model selection in supervised learning, off-policy evaluation relies mostly on theory-based approaches, which provide only limited guidance to practitioners. We show how to use cross-validation for off-policy evaluation. This challenges a popular belief that cross-validation in off-policy evaluation is not feasible. We evaluate our method empirically and show that it addresses a variety of use cases.
 
 ## Installation and Running the Experiments
 
@@ -141,5 +141,21 @@ plot:
 ### The complete list of configurable parameters with their default values can be found in the src/utils/config.py file.  
 ```
 
-# Developing a New Tuning Method/Estimator
-It is straightforward to implement a new method into this codebase. The easiest way is to copy the existing estimator, for example, SwitchDR, and change the bodies of its methods. Then, do not forget to import the class in the [\_\_init__.py file](src/estimators/__init__.py). The same follows for a new tuning method.s
+## Developing a New Tuning Method/Estimator
+It is straightforward to implement a new method into this codebase. The easiest way is to copy the existing estimator, for example, SwitchDR, and change the bodies of its methods. Then, do not forget to import the class in the [\_\_init__.py file](src/estimators/__init__.py). The same follows for a new tuning method.
+
+## BibTeX
+```
+@misc{cief_cross-validated_2024,
+	title = {Cross-Validated Off-Policy Evaluation},
+	url = {http://arxiv.org/abs/2405.15332},
+	number = {{arXiv}:2405.15332},
+	publisher = {{arXiv}},
+	author = {Cief, Matej and Kompan, Michal and Kveton, Branislav},
+	urldate = {2024-05-27},
+	date = {2024-05-24},
+	eprinttype = {arxiv},
+	eprint = {2405.15332 [cs]},
+	keywords = {Computer Science - Machine Learning},
+}
+```

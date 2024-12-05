@@ -1,0 +1,125 @@
+dataset:
+  eval_model_split: 0.5
+  kwargs:
+    dataset: satimage
+    version: 1
+  module: openml
+  preprocessing:
+  - kwargs: {}
+    name: ordinal_label
+estimators:
+- hyperparameters: {}
+  kwargs: {}
+  name: IPS
+  printname: IPS
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DM
+  printname: DM
+  tuning: null
+- hyperparameters: {}
+  kwargs: {}
+  name: DR
+  printname: DR
+  tuning: null
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt OCV_{IPS}}
+  tuning:
+    kwargs:
+      valid_estimator: IPS
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt OCV_{DR}}
+  tuning:
+    kwargs:
+      valid_estimator: DR
+    tuner: OCV
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DR
+    - DM
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \textsc{Slope}
+  tuning:
+    kwargs: {}
+    tuner: SLOPE
+- hyperparameters:
+  - estimator:
+    - IPS
+    - DM
+    - DR
+  kwargs: {}
+  name: EstimatorSelection
+  printname: \ensuremath{\tt PAS{\text -}IF}
+  tuning:
+    kwargs: {}
+    tuner: PASIF
+experiment:
+  ablation:
+    dataset.eval_model_split:
+    - 10
+    - 20
+    - 50
+    - 100
+    - 200
+    - 500
+    - 1000
+    - 2000
+    - 5000
+  directory: sample_size
+  n_iter: 500
+logging_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: 1
+  name: softmax
+plot:
+  figsize:
+  - 5
+  - 3
+  ignore_estimators:
+  - IPS
+  - DR
+  - DM
+  title: satimage
+  type: lineplot
+  use_latex: true
+  xlabel: Number of samples
+  xscale: log
+  xvar: dataset.eval_model_split
+  ylabel: Regret
+  yscale: log
+  yvar: regret
+sampler: {}
+target_policy:
+  kwargs:
+    model_kwargs:
+      max_iter: 1000000
+    preprocessing:
+    - kwargs:
+        n: 1.0
+        replace: true
+      name: subsample
+    temperature: -1
+  name: softmax

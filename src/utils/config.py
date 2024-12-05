@@ -52,10 +52,11 @@ class Plot:
     ylabel:  Union[str, None] = "MSE"
     xvar:  Union[str, None] = None
     yvar:  Union[str, None] = "MSE"
-    xscale:  Union[str, None] = None
+    xscale:  Union[str, None] = "linear"
     yscale:  Union[str, None] = "log"
     title:  Union[str, None] = None
     figsize: List = field(default_factory=lambda: [4, 8/3])
+    ignore_estimators: Union[List[str], None] = None
     use_latex: bool = True
 
 @dataclass

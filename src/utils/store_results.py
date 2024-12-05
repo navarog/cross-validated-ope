@@ -43,6 +43,9 @@ def store_results(df, config: Config):
         results = df.explode(xvar)
     else:
         results = df
+        
+    if config.plot.ignore_estimators is not None:
+        results = results[~results["Estimator"].isin(config.plot.ignore_estimators)]
 
     def gmean(arr):
         """Geometric mean"""
@@ -62,9 +65,9 @@ def store_results(df, config: Config):
     if config.plot.type == "lineplot":
         if xvar is None:
             xvar = next(iter(config.experiment.ablation.keys()))
-        unique_xvars = list(df[xvar].dropna().unique())
+        unique_xvars = list(results[xvar].dropna().unique())
         fig, ax = plt.subplots(figsize=config.plot.figsize)
-        sns.lineplot(data=results, x=xvar, y=yvar, ax=ax, hue="Estimator", markers=True, style="Estimator", estimator=gmean)
+        sns.lineplot(data=results, x=xvar, y=yvar, ax=ax, hue="Estimator", markers=True, style="Estimator")
         plt.legend(loc="center left", bbox_to_anchor=(1.0, 0.5), frameon=False)
         
         plt.yscale(config.plot.yscale)

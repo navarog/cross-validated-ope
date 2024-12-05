@@ -33,5 +33,7 @@ def evaluate(pi_0, pi_e, x, a, r, true_value, config: Config):
             results.append({"Estimator": estimator.printname, "MSE": np.mean(true_value - pi_e_hat)**2, "seconds": time.time() - start})            
     
     estimators.reward_model.RewardModel.clear_cache()
-    return pd.DataFrame(results)
+    results = pd.DataFrame(results)
+    results["regret"] = results["MSE"] - results["MSE"].min()
+    return results
     
